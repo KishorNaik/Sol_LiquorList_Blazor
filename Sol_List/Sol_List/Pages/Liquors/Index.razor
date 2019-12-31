@@ -1,0 +1,41 @@
+﻿@page "/liquor/index"
+
+@inject Sol_List.ViewModels.LiquorViewModel liquorViewModelObj
+@inject Sol_List.Data.LiquorData liquorDataObj;
+
+@code{        
+
+    protected override async Task OnInitializedAsync()
+    {
+        liquorViewModelObj.LiquorList = await liquorDataObj.GetLiquorListAsync();
+    }
+}
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        
+        @foreach (var item in liquorViewModelObj.LiquorList)
+        {
+        <div class="col-lg-3 col-xl-3 col-md-3 col-sm-3 d-flex align-items-stretch" style="width: 18rem;">
+            <div class="card shadow m-3">
+                <div class="card-header text-center text-justify bg-dark text-white">
+                    <h4>@item.Category</h4>
+                </div>
+             
+                <img class="card-img-top" src="@item.Url" style="height:200px">
+                
+                <div class="card-body text-center text-justify">
+                    <h5 class="card-title">@item.Name</h5>
+                </div>
+                <div class="card-footer text-left">
+                    <h5>
+                        ₹ @item.Price
+                    </h5>
+                </div>
+            </div>
+        </div>
+        }
+
+    </div>
+</div>
